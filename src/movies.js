@@ -44,23 +44,24 @@ function scoresAverage(arr) {
     const avgScore = (arr.filter(onlyWithValues).reduce(sum, 0)) / arr.length;
 
     function onlyWithValues(movie){
-      return movie.score !== "";
+      return typeof movie.score === "number";
     }
 
     function sum(count, value) {
       return (count += value.score);
       }
 
-    const roundNum = function (num, numPlaces) {
-      const multiplyByTen = Math.pow(10, numPlaces)
-      const afterRound = Math.round(num * multiplyByTen)
-      return afterRound / multiplyByTen
-    };
-
-    return roundNum(avgScore, 2);
+    return Number(avgScore.toFixed(2));
   }
 }
 
+
+/* DECIMAL ROUNDING FUNCTION
+const roundNum = function (num, numPlaces) {
+  const multiplyByTen = Math.pow(10, numPlaces)
+  const afterRound = Math.round(num * multiplyByTen)
+  return afterRound / multiplyByTen
+};*/
 
 
 
@@ -87,13 +88,7 @@ function dramaMoviesScore(arr) {
       return (count += value.score);
       }
 
-    const roundNum = function (num, numPlaces) {
-      const multiplyByTen = Math.pow(10, numPlaces)
-      const afterRound = Math.round(num * multiplyByTen)
-      return afterRound / multiplyByTen
-    };
-
-    return roundNum(avgScore, 2);
+      return Number(avgScore.toFixed(2));
   }
   
 }
@@ -105,7 +100,11 @@ function dramaMoviesScore(arr) {
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(arr) {
 
-  const sortedByTitle = arr.sort(function (a, b) {
+  const arrCopy = arr.map((movie) => {
+    return movie
+  });
+  
+  const sortedByTitle = arrCopy.sort(function (a, b) {
     return a.title - b.title;
   });
   
@@ -123,7 +122,11 @@ function orderByYear(arr) {
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically(arr) {
 
-  const orderedArr = arr.sort(function (a, b) {
+  const arrCopy = arr.map(function (movie)  {
+    return movie;
+  })
+  
+  const orderedArr = arrCopy.sort(function (a, b) {
     return a.title - b.title;
   });
 
